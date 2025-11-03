@@ -1,0 +1,26 @@
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+Animal name constructor called
+Cat copy constructor called
+Brain copy constructor called
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+Animal name constructor called
+Dog copy constructor called
+Brain copy constructor called
+Cat Sound
+Dog Sound
+Dog destructor called
+Brain destructor called
+Animal destructor called
+Dog destructor called
+Brain destructor called
+Animal destructor called
+Cat destructor called
+Brain destructor called
+Animal destructor called
+Cat destructor called
+Brain destructor called
+Animal destructor called

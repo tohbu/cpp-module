@@ -1,0 +1,134 @@
+	start
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+	end
+	start
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+	end
+Dog Sound
+Dog Sound
+Dog Sound
+Dog Sound
+Dog Sound
+Cat Sound
+Cat Sound
+Cat Sound
+Cat Sound
+Cat Sound
+	start
+Dog destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Dog destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Dog destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Dog destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Dog destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Cat destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Cat destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Cat destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Cat destructor called
+Brain destructor called
+Animal destructor called
+	end
+	start
+Cat destructor called
+Brain destructor called
+Animal destructor called
+	end
+Animal name constructor called
+Cat default constructor called
+Brain default constructor called
+Animal name constructor called
+Cat copy constructor called
+Brain copy constructor called
+Animal name constructor called
+Dog default constructor called
+Brain default constructor called
+Animal name constructor called
+Dog copy constructor called
+Brain copy constructor called
+Dog destructor called
+Brain destructor called
+Animal destructor called
+Dog destructor called
+Brain destructor called
+Animal destructor called
+Cat destructor called
+Brain destructor called
+Animal destructor called
+Cat destructor called
+Brain destructor called
+Animal destructor called
