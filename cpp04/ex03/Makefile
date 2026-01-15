@@ -5,7 +5,7 @@ SRCS_FILE  = AMateria Character Cure Ice MateriaSource main
 SRCS = $(addsuffix .cpp, $(SRCS_FILE))
 OBJ  = $(SRCS_FILE:=.o)
 CXX  = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98  -g
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98  -pedantic -g
 
 
 all: $(NAME)
