@@ -3,8 +3,8 @@
 #include "WrongCat.hpp"
 #include "WrongDog.hpp"
 
- int main()
- {
+int main()
+{
 	Cat cat;
 	Cat dcat = cat;
 	Dog *dog = new Dog();
@@ -14,5 +14,5 @@
 	// Animal a = Animal();
 	delete dog;
 	delete ddog;
-	return 0;	
- }
+	return 0;
+}

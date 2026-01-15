@@ -3,22 +3,22 @@
 #define FROM 2
 #define TO 3
 
-int main(int argc , char *argv[])
+int main(int argc, char *argv[])
 {
-	if(argc != 4)
+	if (argc != 4)
 	{
-		std::cerr << "please 3 parameters." << std:: endl;
+		std::cerr << "please 3 parameters." << std::endl;
 		return 1;
 	}
 	try
 	{
-		FileReplace f(argv[FILENAME], argv[FROM], argv[TO]);			
+		FileReplace f(argv[FILENAME], argv[FROM], argv[TO]);
 		f.replace_str();
 	}
-	catch(const std::exception& e)
+	catch (const std::exception &e)
 	{
 		std::cerr << e.what() << '\n';
 		return 1;
-	}	
+	}
 	return 0;
-} 
+}

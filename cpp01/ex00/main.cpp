@@ -5,7 +5,7 @@ int main()
 {
 	Zombie a("a");
 	Zombie b("b");
-	Zombie* c = newZombie("c"); 
+	Zombie *c = newZombie("c");
 
 	a.announce();
 	b.announce();

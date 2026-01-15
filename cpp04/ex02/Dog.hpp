@@ -3,18 +3,17 @@
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-class Dog :public Animal
+class Dog : public Animal
 {
-	private:
-		Brain* _brain;
-	public:
-		Dog();
-		Dog(const std::string &type);
-		~Dog();
-		Dog (const Dog& d);
-		Dog& operator=(const Dog& d);
-		void makeSound()const;
+private:
+	Brain *_brain;
+
+public:
+	Dog();
+	Dog(const std::string &type);
+	~Dog();
+	Dog(const Dog &d);
+	Dog &operator=(const Dog &d);
+	void makeSound() const;
 };
 #endif
-
-

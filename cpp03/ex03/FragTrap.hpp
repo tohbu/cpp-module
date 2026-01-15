@@ -2,18 +2,16 @@
 #define FRAG_TRAP_HPP
 #include "ClapTrap.hpp"
 
-class FragTrap: public ClapTrap
+class FragTrap : public ClapTrap
 {
-	private:
+private:
 	//
-	public:
-		FragTrap();
-		~FragTrap();
-		FragTrap(std::string name);
-		FragTrap& operator=(const FragTrap &f);
-		void highFivesGuys(void);
-
-
+public:
+	FragTrap();
+	~FragTrap();
+	FragTrap(std::string name);
+	FragTrap &operator=(const FragTrap &f);
+	void highFivesGuys(void);
 };
 
 #endif
