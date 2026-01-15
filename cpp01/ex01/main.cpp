@@ -10,8 +10,8 @@ int main()
 
 	a.announce();
 	b.announce();
-	for(int i = 0; i < N; i++)
+	for (int i = 0; i < N; i++)
 		z[i].announce();
-	delete[] z;  
+	delete[] z;
 	return 0;
 }

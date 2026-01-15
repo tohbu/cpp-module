@@ -28,10 +28,21 @@ bool read_required_line(const char *prompt, std::string &out)
 
 void Contact::print(int index)
 {
+<<<<<<< HEAD
 	std::cout << std::setw(10) << std::right << "index" << "|";
 	std::cout << std::setw(10) << std::right << "first_name" << "|";
 	std::cout << std::setw(10) << std::right << "last_name" << "|";
 	std::cout << std::setw(10) << std::right << "nick_name" << "|";
+=======
+	std::cout << std::setw(10) << std::right << "index"
+			  << "|";
+	std::cout << std::setw(10) << std::right << "first_name"
+			  << "|";
+	std::cout << std::setw(10) << std::right << "last_name"
+			  << "|";
+	std::cout << std::setw(10) << std::right << "nick_name"
+			  << "|";
+>>>>>>> origin/main
 	std::cout << std::endl;
 	//
 	std::cout << std::setw(10) << std::right << index << "|";

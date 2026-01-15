@@ -17,10 +17,7 @@ ClapTrap::ClapTrap(std::string name) :
 }
 
 ClapTrap::ClapTrap(const ClapTrap &c) :
-	_name(c._name),
-	_HitPoint(c._HitPoint),
-	_EnergyPoint(c._EnergyPoint),
-	_AttackDamage(c._AttackDamage)
+	_name(c._name), _HitPoint(c._HitPoint), _EnergyPoint(c._EnergyPoint), _AttackDamage(c._AttackDamage)
 {
 	pMsg("Copy constructor called");
 }
@@ -46,41 +43,45 @@ void ClapTrap::attack(const std::string &target)
 {
 	if (_HitPoint <= 0)
 	{
-		std::cout << "ClapTrap <" << _name << "> has no hit points left!"
-				  << std::endl;
+		std::cout << "ClapTrap <" << _name << "> has no hit points left!" << std::endl;
 		return;
 	}
 	if (_EnergyPoint <= 0)
 	{
-		std::cout << "ClapTrap <" << _name << "> has no energy points left!"
-				  << std::endl;
+		std::cout << "ClapTrap <" << _name << "> has no energy points left!" << std::endl;
 		return;
 	}
 	std::cout << "ClapTrap <" << _name << "> ";
-	std::cout << "attacks" << " <" << target << ">, ";
-	std::cout << "causing" << " <" << _AttackDamage << "> "
+	std::cout << "attacks"
+			  << " <" << target << ">, ";
+	std::cout << "causing"
+			  << " <" << _AttackDamage << "> "
 			  << "points of damage!" << std::endl;
 	_EnergyPoint--;
 }
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	std::cout << "ClapTrap " << "<" << _name << "> ";
-	std::cout << "take damage " << "<" << amount << ">" << std::endl;
+	std::cout << "ClapTrap "
+			  << "<" << _name << "> ";
+	std::cout << "take damage "
+			  << "<" << amount << ">" << std::endl;
 	_HitPoint -= amount;
 	if (_HitPoint <= 0)
-		std::cout << "ClapTrap " << "<" << _name << "> " << "game over"
-				  << std::endl;
+		std::cout << "ClapTrap "
+				  << "<" << _name << "> "
+				  << "game over" << std::endl;
 }
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_EnergyPoint <= 0)
 	{
-		std::cout << "ClapTrap <" << _name << "> has no hit points left!"
-				  << std::endl;
+		std::cout << "ClapTrap <" << _name << "> has no hit points left!" << std::endl;
 		return;
 	}
-	std::cout << "ClapTrap " << "<" << _name << "> ";
-	std::cout << "repairs " << "<" << amount << ">" << std::endl;
+	std::cout << "ClapTrap "
+			  << "<" << _name << "> ";
+	std::cout << "repairs "
+			  << "<" << amount << ">" << std::endl;
 	_EnergyPoint--;
 	_HitPoint += amount;
 }

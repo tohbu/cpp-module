@@ -1,6 +1,6 @@
 #include "Harl.hpp"
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 
 int main()
 {
@@ -9,10 +9,10 @@ int main()
 	while (1)
 	{
 		std::cout << "Harl>";
-		if(!getline(std::cin,read_line))
+		if (!getline(std::cin, read_line))
 		{
-			if(std::cin.eof())
-				std::cout <<std::endl;
+			if (std::cin.eof())
+				std::cout << std::endl;
 			return 0;
 		}
 		h.complain(read_line);

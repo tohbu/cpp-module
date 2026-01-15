@@ -3,7 +3,7 @@
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
-class DiamondTrap :public FragTrap , ScavTrap
+class DiamondTrap : public FragTrap, ScavTrap
 {
 private:
 	/* data */
@@ -19,6 +19,5 @@ DiamondTrap::DiamondTrap(/* args */)
 DiamondTrap::~DiamondTrap()
 {
 }
-
 
 #endif

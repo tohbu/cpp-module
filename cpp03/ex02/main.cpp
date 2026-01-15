@@ -1,4 +1,4 @@
-#include"FragTrap.hpp"
+#include "FragTrap.hpp"
 
 int main(void)
 {

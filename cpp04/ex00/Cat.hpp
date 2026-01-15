@@ -2,16 +2,14 @@
 #define CAT_HPP
 #include "Animal.hpp"
 
-class Cat :public Animal
+class Cat : public Animal
 {
-	public:
-		Cat();
-		Cat(const std::string &type);
-		~Cat();
-		Cat (const Cat& c);
-		Cat& operator=(const Cat& c);
-		void makeSound()const;
+public:
+	Cat();
+	Cat(const std::string &type);
+	~Cat();
+	Cat(const Cat &c);
+	Cat &operator=(const Cat &c);
+	void makeSound() const;
 };
 #endif
-
-

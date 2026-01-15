@@ -71,7 +71,6 @@ void Account::displayAccountsInfos(void)
 
 void Account::makeDeposit(int deposit)
 {
-
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex;
 	std::cout << ";p_amount:" << _amount;
