@@ -17,6 +17,7 @@ public:
 	Bureaucrat &operator=(const Bureaucrat &other);
 	std::string getName() const;
 	int getGrade() const;
+	//
 	class GradeTooHighException : public std::exception
 	{
 	public:
@@ -28,7 +29,7 @@ public:
 	public:
 		virtual const char *what() const throw();
 	};
-
+	//
 	Bureaucrat &operator++();
 	Bureaucrat &operator--();
 	Bureaucrat operator++(int);

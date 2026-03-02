@@ -2,7 +2,7 @@
 #define BUREAUCRAT_HPP
 #include <string>
 #include <sstream>
-#include "Form.hpp"
+#include "AForm.hpp"
 
 class Bureaucrat
 {
@@ -36,7 +36,8 @@ public:
 	Bureaucrat operator--(int);
 
 	//ex01追加
-	void signForm(Form &form);
+	void signForm(AForm &form);
+	void executeForm(AForm const &form) const;
 };
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat);

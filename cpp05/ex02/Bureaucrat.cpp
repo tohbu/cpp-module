@@ -94,7 +94,7 @@ int Bureaucrat::getGrade() const
 	return this->_grade;
 }
 
-void Bureaucrat ::signForm(Form &form)
+void Bureaucrat ::signForm(AForm &form)
 {
 	try
 	{
@@ -107,6 +107,19 @@ void Bureaucrat ::signForm(Form &form)
 				  << " because " << e.what()
 				  << ". (Bureaucrat grade: " << this->getGrade() << ")"
 				  << std::endl;
+	}
+}
+
+void Bureaucrat ::executeForm(AForm const &form) const
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->getName() << " executed " << form.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		//error message
 	}
 }
 
