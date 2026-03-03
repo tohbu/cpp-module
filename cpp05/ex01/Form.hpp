@@ -10,8 +10,8 @@ class Form
 private:
 	const std::string _name;
 	bool _isSigned;
-	const int _gradeToSign;
-	const int _gradeToExecute;
+	int _gradeToSign;
+	int _gradeToExecute;
 	/* data */
 
 public:
@@ -29,24 +29,12 @@ public:
 
 	class GradeTooHighException : public std::exception
 	{
-	private:
-		int _grade;
-		std::string _message;
-
 	public:
-		GradeTooHighException(int grade) throw();
-		virtual ~GradeTooHighException() throw();
 		virtual const char *what() const throw();
 	};
 	class GradeTooLowException : public std::exception
 	{
-	private:
-		int _grade;
-		std::string _message;
-
 	public:
-		GradeTooLowException(int grade) throw();
-		virtual ~GradeTooLowException() throw();
 		virtual const char *what() const throw();
 	};
 };

@@ -1,50 +1,53 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main()
 {
-	std::cout << "--- 1. Normal Test ---" << std::endl;
-	Bureaucrat bob("Bob", 2);
-	AForm taxForm("TaxForm", 1, 1);
-	AForm tax2Form("Tax2Form", 2, 2);
-	AForm tax3Form("Tax3Form", 3, 3);
-	std::cout << taxForm << tax2Form << tax3Form << std::endl;
-	bob.signForm(taxForm);
-	bob.signForm(tax2Form);
-	bob.signForm(tax3Form);
-	try
-	{
-		AForm invalidForm("InvalidForm", 0, 1);
-	}
-	catch (const std::exception &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	try
-	{
-		AForm invalidForm("InvalidForm", 1, 0);
-	}
-	catch (const std::exception &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	try
-	{
-		AForm invalidForm("InvalidForm", 151, 1);
-	}
-	catch (const std::exception &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	try
-	{
-		AForm invalidForm2("InvalidForm2", 1, 151);
-	}
-	catch (const std::exception &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	// Test case 1: Valid Bureaucrat and AForm
+	std::cout << "Valid Bureaucrat and AForm----------------------------------------\n"
+			  << std::endl;
+	Bureaucrat bur("Alice", 1);
+	AForm *form = new ShrubberyCreationForm("Garden");
+	AForm *form2 = new RobotomyRequestForm("Bob");
+	AForm *form3 = new PresidentialPardonForm("Charlie");
+	bur.signForm(*form);
+	bur.executeForm(*form);
 
+	bur.signForm(*form2);
+	bur.executeForm(*form2);
+
+	bur.signForm(*form3);
+	bur.executeForm(*form3);
+	std::cout << "\nSign miss----------------------------------------\n"
+			  << std::endl;
+	// Test case 2: Bureaucrat with insufficient grade
+	Bureaucrat lowGradeBur("A", 150);
+	AForm *Sform = new ShrubberyCreationForm("Park");
+	AForm *Rform = new RobotomyRequestForm("Dave");
+	AForm *Pform = new PresidentialPardonForm("Eve");
+	lowGradeBur.signForm(*form);
+	lowGradeBur.executeForm(*form);
+	lowGradeBur.signForm(*Sform);
+	lowGradeBur.executeForm(*Sform);
+	lowGradeBur.signForm(*Rform);
+	lowGradeBur.executeForm(*Rform);
+	lowGradeBur.signForm(*Pform);
+	lowGradeBur.executeForm(*Pform);
+	delete Sform;
+	delete Rform;
+	delete Pform;
+	std::cout << "\nExecution attempts with insufficient grade----------------------------------------\n"
+			  << std::endl;
+	lowGradeBur.executeForm(*form);
+	lowGradeBur.executeForm(*form2);
+	lowGradeBur.executeForm(*form3);
+	std::cout << "----------------------------------------" << std::endl;
+	delete form;
+	delete form2;
+	delete form3;
 	return 0;
 }
