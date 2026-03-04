@@ -1,5 +1,5 @@
 #ifndef SCALARCONVERTER_HPP
-# define SCALARCONVERTER_HPP
+#define SCALARCONVERTER_HPP
 
 #include <iostream>
 #include <string>
@@ -7,13 +7,25 @@
 
 class ScalarConverter
 {
-	public:
-		ScalarConverter() = delete;
-		ScalarConverter(ScalarConverter const & src) = delete;
-		~ScalarConverter() = delete;
-		ScalarConverter & operator=(ScalarConverter const & rhs) = delete;
+public:
+	enum LiteralType
+	{
+		CHAR,
+		INT,
+		FLOAT,
+		DOUBLE,
+		PSEUDO_LITERAL,
+		UNKNOWN
+	};
 
-		static void convert(const std::string& literal);
+private:
+	ScalarConverter();
+	ScalarConverter(ScalarConverter const &src);
+	~ScalarConverter();
+	ScalarConverter &operator=(ScalarConverter const &rhs);
+
+public:
+	static void convert(const std::string &literal);
 };
 
 #endif
