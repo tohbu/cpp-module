@@ -7,6 +7,9 @@
 
 const std::string important_literals[6] = {"nan", "+inf", "-inf", "nanf", "+inff", "-inff"};
 
+//int  INT_MAXのとき　CHARはどうなるのか？
+//int max >
+
 ScalarConverter::LiteralType detect_type(const std::string &literal)
 {
 	for (int i = 0; i < 6; ++i)
@@ -17,10 +20,14 @@ ScalarConverter::LiteralType detect_type(const std::string &literal)
 	if (literal.length() == 1 && std::isprint(literal[0]) && !std::isdigit(literal[0]))
 		return ScalarConverter::CHAR;
 	std::istringstream iss(literal);
-	int int_val;
-	iss >> int_val;
+	long int int_val;
 	if (iss >> int_val && iss.eof())
-		return ScalarConverter::INT;
+	{
+		if (std::numeric_limits< int >::min() <= int_val && int_val <= std::numeric_limits< int >::max())
+			return ScalarConverter::INT;
+		else
+			return ScalarConverter::DOUBLE;
+	}
 	std::istringstream iss_double(literal);
 	double double_val;
 	if (iss_double >> double_val)
@@ -38,13 +45,27 @@ ScalarConverter::LiteralType detect_type(const std::string &literal)
 void print_result(char char_output, int int_output, float float_output, double double_output)
 {
 	std::cout << "char: ";
-	if (std::isprint(char_output))
+
+	//char
+	double char_min = static_cast< int >(std::numeric_limits< char >::min());
+	double char_max = static_cast< int >(std::numeric_limits< char >::max());
+
+	if (!(char_min <= int_output && int_output <= char_max))
+		std::cout << "impossible";
+	else if (std::isprint(char_output))
 		std::cout << "'" << char_output << "'";
 	else
 		std::cout << "Non displayable";
 	std::cout << std::endl;
 
-	std::cout << "int: " << int_output << std::endl;
+	//int
+	double int_min = static_cast< double >(std::numeric_limits< int >::min());
+	double int_max = static_cast< double >(std::numeric_limits< int >::max());
+
+	if (!(int_min <= double_output && double_output <= int_max))
+		std::cout << "int: impossible" << std::endl;
+	else
+		std::cout << "int: " << int_output << std::endl;
 	//float
 	if (float_output - static_cast< int >(float_output) == 0)
 		std::cout << "float: " << float_output << ".0f" << std::endl;
@@ -79,6 +100,7 @@ void ScalarConverter::convert(const std::string &literal)
 	int int_output;
 	float float_output;
 	double double_output;
+	std::cout << "Detected type: " << type << std::endl;
 	switch (type)
 	{
 		case ScalarConverter::CHAR:
@@ -140,6 +162,32 @@ void ScalarConverter::convert(const std::string &literal)
 			return;
 	}
 	print_result(char_output, int_output, float_output, double_output);
+}
+
+std::ostream &operator<<(std::ostream &os, ScalarConverter::LiteralType type)
+{
+	switch (type)
+	{
+		case ScalarConverter::CHAR:
+			os << "CHAR";
+			break;
+		case ScalarConverter::INT:
+			os << "INT";
+			break;
+		case ScalarConverter::FLOAT:
+			os << "FLOAT";
+			break;
+		case ScalarConverter::DOUBLE:
+			os << "DOUBLE";
+			break;
+		case ScalarConverter::PSEUDO_LITERAL:
+			os << "PSEUDO_LITERAL";
+			break;
+		default:
+			os << "UNKNOWN";
+			break;
+	}
+	return os;
 }
 
 // Implementation of the conversion logic goes here.

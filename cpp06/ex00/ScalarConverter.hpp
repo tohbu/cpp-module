@@ -28,4 +28,6 @@ public:
 	static void convert(const std::string &literal);
 };
 
+std::ostream &operator<<(std::ostream &os, ScalarConverter::LiteralType type);
+
 #endif
