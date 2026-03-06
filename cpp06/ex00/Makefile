@@ -1,6 +1,6 @@
 # Basic Makefile Template
 NAME = a.out
-SRCS_FILE  = main  Animal Dog Cat WrongAnimal WrongDog WrongCat Brain
+SRCS_FILE  = main ScalarConverter
 
 SRCS = $(addsuffix .cpp, $(SRCS_FILE))
 OBJ  = $(SRCS_FILE:=.o)
@@ -17,10 +17,10 @@ $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
