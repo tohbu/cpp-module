@@ -1,6 +1,6 @@
 # Basic Makefile Template
 NAME = a.out
-SRCS_FILE  = main 
+SRCS_FILE  = main Base 
 
 SRCS = $(addsuffix .cpp, $(SRCS_FILE))
 OBJ  = $(SRCS_FILE:=.o)
