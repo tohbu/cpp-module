@@ -2,9 +2,6 @@
 #define ARRAY_HPP
 #include <cmath>
 #include <ctime>
-#include <cstdlib>
-#include <stdexcept>
-
 template < typename T >
 
 class Array
@@ -14,60 +11,17 @@ private:
 	unsigned int _size;
 
 public:
-	Array() : _array(NULL), _size(0)
-	{
-	}
-	Array(unsigned int n) : _array(new T[n]), _size(n)
-	{
-	}
-	Array(const Array &other) : _array(new T[other.size()]), _size(other.size())
-	{
-		for (size_t i = 0; i < other.size(); i++)
-		{
-			this->_array[i] = other._array[i];
-		}
-	}
-	~Array()
-	{
-		delete[] this->_array;
-	}
-	Array &operator=(const Array &other)
-	{
-		if (this != &other)
-		{
-			delete[] this->_array;
-			this->_array = new T[other.size()];
-			this->_size = other.size();
-			for (size_t i = 0; i < this->_size; i++)
-			{
-				this->_array[i] = other._array[i];
-			}
-		}
-		return *this;
-	}
-
-	T &operator[](unsigned int index)
-	{
-		if (index >= this->_size)
-		{
-			throw std::out_of_range("Index out of bounds");
-		}
-		return this->_array[index];
-	}
-
-	const T &operator[](unsigned int index) const
-	{
-		if (index >= this->_size)
-		{
-			throw std::out_of_range("Index out of bounds");
-		}
-		return const_cast< T & >(this->_array[index]);
-	}
-	unsigned int size() const
-	{
-		return this->_size;
-	}
+	Array();
+	Array(unsigned int n);
+	Array(const Array &other);
+	~Array();
+	Array &operator=(const Array &other);
+	T &operator[](unsigned int index);
+	const T &operator[](unsigned int index) const;
+	unsigned int size() const;
 };
+
+#include "Array.tpp"
 
 #endif
 
