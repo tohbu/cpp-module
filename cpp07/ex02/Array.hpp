@@ -68,6 +68,7 @@ public:
 		return this->_size;
 	}
 };
+#include "Array.tpp"
 
 #endif
 
