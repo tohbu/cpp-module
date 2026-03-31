@@ -18,6 +18,13 @@ public:
 	Bureaucrat &operator=(const Bureaucrat &other);
 	std::string getName() const;
 	int getGrade() const;
+	Bureaucrat &operator++();
+	Bureaucrat &operator--();
+	Bureaucrat operator++(int);
+	Bureaucrat operator--(int);
+	//ex01追加
+	void signForm(Form &form);
+
 	class GradeTooHighException : public std::exception
 	{
 	public:
@@ -29,14 +36,6 @@ public:
 	public:
 		virtual const char *what() const throw();
 	};
-
-	Bureaucrat &operator++();
-	Bureaucrat &operator--();
-	Bureaucrat operator++(int);
-	Bureaucrat operator--(int);
-
-	//ex01追加
-	void signForm(Form &form);
 };
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
