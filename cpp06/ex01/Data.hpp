@@ -5,7 +5,7 @@ struct Data
 {
 	int _value;
 
-	public:
+public:
 	Data();
 	Data(int value);
 	Data(const Data &src);

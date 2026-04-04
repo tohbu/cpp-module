@@ -1,22 +1,5 @@
 #include "Serializer.hpp"
 
-Serializer::Serializer()
-{
-}
-Serializer::Serializer(const Serializer &src)
-{
-	(void)src;
-}
-Serializer &Serializer::operator=(const Serializer &src)
-{
-	(void)src;
-	return *this;
-}
-
-Serializer::~Serializer()
-{
-}
-
 uintptr_t Serializer::serializer(Data *ptr)
 {
 	uintptr_t result;
@@ -27,6 +10,6 @@ uintptr_t Serializer::serializer(Data *ptr)
 Data *Serializer::deserializer(uintptr_t raw)
 {
 	Data *result;
-	result = reinterpret_cast< Data *>(raw);
+	result = reinterpret_cast< Data * >(raw);
 	return result;
 }
