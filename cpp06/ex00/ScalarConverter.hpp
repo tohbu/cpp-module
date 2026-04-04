@@ -5,29 +5,22 @@
 #include <string>
 #include <cstdlib>
 
+enum LiteralType
+{
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE,
+	PSEUDO_LITERAL,
+	UNKNOWN
+};
+
 class ScalarConverter
 {
-public:
-	enum LiteralType
-	{
-		CHAR,
-		INT,
-		FLOAT,
-		DOUBLE,
-		PSEUDO_LITERAL,
-		UNKNOWN
-	};
-
-private:
-	ScalarConverter();
-	ScalarConverter(ScalarConverter const &src);
-	~ScalarConverter();
-	ScalarConverter &operator=(ScalarConverter const &src);
-
 public:
 	static void convert(const std::string &literal);
 };
 
-std::ostream &operator<<(std::ostream &os, ScalarConverter::LiteralType type);
+std::ostream &operator<<(std::ostream &os, LiteralType type);
 
 #endif

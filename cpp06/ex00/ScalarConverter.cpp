@@ -5,60 +5,56 @@
 #include <sstream>
 #include <limits>
 
-const std::string important_literals[6] = {"nan", "+inf", "-inf", "nanf", "+inff", "-inff"};
+const std::string important_literals[8] = {"nan", "+inf", "inf", "-inf", "nanf", "inff", "+inff", "-inff"};
 
-//int  INT_MAXのとき　CHARはどうなるのか？
-//int max >
-
-ScalarConverter::ScalarConverter()
+bool check_literal(const std::string &literal)
 {
+	int dot_count = 0;
+	for (size_t i = 0; i < literal.length(); ++i)
+	{
+		if (i == 0 && (literal[i] == '+' || literal[i] == '-'))
+			continue;
+		if (!std::isdigit(literal[i]) && literal[i] != '.' && literal[i] != 'f')
+			return false;
+		if (literal[i] == 'f' && i != literal.length() - 1)
+			return false;
+		if (literal[i] == '.')
+		{
+			dot_count++;
+			if (dot_count > 1)
+				return false;
+		}
+	}
+	return true;
 }
-
-ScalarConverter::ScalarConverter(ScalarConverter const &src)
+LiteralType detect_type(const std::string &literal)
 {
-	(void)src;
-}
-
-ScalarConverter::~ScalarConverter()
-{
-}
-
-ScalarConverter &ScalarConverter::operator=(ScalarConverter const &src)
-{
-	(void)src;
-	return *this;
-}
-
-ScalarConverter::LiteralType detect_type(const std::string &literal)
-{
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
 		if (literal == important_literals[i])
-			return ScalarConverter::PSEUDO_LITERAL;
+			return PSEUDO_LITERAL;
 	}
 	if (literal.length() == 1 && std::isprint(literal[0]) && !std::isdigit(literal[0]))
-		return ScalarConverter::CHAR;
+		return CHAR;
+	if (!check_literal(literal))
+		return UNKNOWN;
 	std::istringstream iss(literal);
 	long int int_val;
 	if (iss >> int_val && iss.eof())
 	{
 		if (std::numeric_limits< int >::min() <= int_val && int_val <= std::numeric_limits< int >::max())
-			return ScalarConverter::INT;
+			return INT;
 		else
-			return ScalarConverter::DOUBLE;
+			return DOUBLE;
 	}
-	std::istringstream iss_double(literal);
-	double double_val;
-	if (iss_double >> double_val)
+	if (literal[literal.length() - 1] == 'f')
 	{
-		if (iss_double.eof())
-			return ScalarConverter::DOUBLE;
-		char last_char;
-		iss_double >> last_char;
-		if (last_char == 'f' && iss_double.eof())
-			return ScalarConverter::FLOAT;
+		std::istringstream iss_float(literal);
+		float float_val;
+		if (iss_float >> float_val)
+			return FLOAT;
 	}
-	return ScalarConverter::UNKNOWN;
+	return UNKNOWN;
 }
 
 void print_result(char char_output, int int_output, float float_output, double double_output)
@@ -119,10 +115,10 @@ void ScalarConverter::convert(const std::string &literal)
 	int int_output;
 	float float_output;
 	double double_output;
-	std::cout << "Detected type: " << type << std::endl;
+	// std::cout << "Detected type: " << type << std::endl;
 	switch (type)
 	{
-		case ScalarConverter::CHAR:
+		case CHAR:
 		{
 			char_output = literal[0];
 			int_output = static_cast< int >(char_output);
@@ -130,7 +126,7 @@ void ScalarConverter::convert(const std::string &literal)
 			double_output = static_cast< double >(char_output);
 			break;
 		}
-		case ScalarConverter::INT:
+		case INT:
 		{
 			int_output = std::atoi(literal.c_str());
 			char_output = static_cast< char >(int_output);
@@ -138,7 +134,7 @@ void ScalarConverter::convert(const std::string &literal)
 			double_output = static_cast< double >(int_output);
 			break;
 		}
-		case ScalarConverter::FLOAT:
+		case FLOAT:
 		{
 			float_output = std::atof(literal.c_str());
 			char_output = static_cast< char >(float_output);
@@ -146,7 +142,7 @@ void ScalarConverter::convert(const std::string &literal)
 			double_output = static_cast< double >(float_output);
 			break;
 		}
-		case ScalarConverter::DOUBLE:
+		case DOUBLE:
 		{
 			double_output = std::atof(literal.c_str());
 			char_output = static_cast< char >(double_output);
@@ -154,7 +150,7 @@ void ScalarConverter::convert(const std::string &literal)
 			float_output = static_cast< float >(double_output);
 			break;
 		}
-		case ScalarConverter::PSEUDO_LITERAL:
+		case PSEUDO_LITERAL:
 		{
 			float_output = 0.0f;
 			double_output = 0.0;
@@ -163,7 +159,7 @@ void ScalarConverter::convert(const std::string &literal)
 				float_output = std::numeric_limits< float >::quiet_NaN();
 				double_output = std::numeric_limits< double >::quiet_NaN();
 			}
-			else if (literal == "+inf" || literal == "+inff")
+			else if (literal == "+inf" || literal == "+inff" || literal == "inf" || literal == "inff")
 			{
 				float_output = std::numeric_limits< float >::infinity();
 				double_output = std::numeric_limits< double >::infinity();
@@ -183,23 +179,23 @@ void ScalarConverter::convert(const std::string &literal)
 	print_result(char_output, int_output, float_output, double_output);
 }
 
-std::ostream &operator<<(std::ostream &os, ScalarConverter::LiteralType type)
+std::ostream &operator<<(std::ostream &os, LiteralType type)
 {
 	switch (type)
 	{
-		case ScalarConverter::CHAR:
+		case CHAR:
 			os << "CHAR";
 			break;
-		case ScalarConverter::INT:
+		case INT:
 			os << "INT";
 			break;
-		case ScalarConverter::FLOAT:
+		case FLOAT:
 			os << "FLOAT";
 			break;
-		case ScalarConverter::DOUBLE:
+		case DOUBLE:
 			os << "DOUBLE";
 			break;
-		case ScalarConverter::PSEUDO_LITERAL:
+		case PSEUDO_LITERAL:
 			os << "PSEUDO_LITERAL";
 			break;
 		default:

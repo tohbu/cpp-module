@@ -1,5 +1,5 @@
 # Basic Makefile Template
-NAME = a.out
+NAME = convert
 SRCS_FILE  = main ScalarConverter
 
 SRCS = $(addsuffix .cpp, $(SRCS_FILE))
