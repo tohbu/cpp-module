@@ -4,12 +4,15 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include <cstdlib>
+#include <ctime>
 
 int main()
 {
 	// Test case 1: Valid Bureaucrat and AForm
 	std::cout << "Valid Bureaucrat and AForm----------------------------------------\n"
 			  << std::endl;
+	std::srand(std::time(NULL));
 	Bureaucrat bur("Alice", 1);
 	AForm *form = new ShrubberyCreationForm("Garden");
 	AForm *form2 = new RobotomyRequestForm("Bob");
