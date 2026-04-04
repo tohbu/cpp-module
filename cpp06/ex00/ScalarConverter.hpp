@@ -22,7 +22,7 @@ private:
 	ScalarConverter();
 	ScalarConverter(ScalarConverter const &src);
 	~ScalarConverter();
-	ScalarConverter &operator=(ScalarConverter const &rhs);
+	ScalarConverter &operator=(ScalarConverter const &src);
 
 public:
 	static void convert(const std::string &literal);

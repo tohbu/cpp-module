@@ -10,6 +10,25 @@ const std::string important_literals[6] = {"nan", "+inf", "-inf", "nanf", "+inff
 //int  INT_MAXのとき　CHARはどうなるのか？
 //int max >
 
+ScalarConverter::ScalarConverter()
+{
+}
+
+ScalarConverter::ScalarConverter(ScalarConverter const &src)
+{
+	(void)src;
+}
+
+ScalarConverter::~ScalarConverter()
+{
+}
+
+ScalarConverter &ScalarConverter::operator=(ScalarConverter const &src)
+{
+	(void)src;
+	return *this;
+}
+
 ScalarConverter::LiteralType detect_type(const std::string &literal)
 {
 	for (int i = 0; i < 6; ++i)
