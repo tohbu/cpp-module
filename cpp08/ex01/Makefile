@@ -5,15 +5,14 @@ SRCS_FILE  = main  Span
 SRCS = $(addsuffix .cpp, $(SRCS_FILE))
 OBJ  = $(SRCS_FILE:=.o)
 CXX  = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98   
-
+CXXFLAGS = -g  -Wall -Wextra -Werror -std=c++98  
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp Span.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
