@@ -5,7 +5,6 @@
 
 Span::Span(unsigned int n) : _size(n)
 {
-	_numbers.reserve(n);
 }
 
 Span::Span(const Span &other) : _size(other._size), _numbers(other._numbers)
@@ -29,10 +28,17 @@ Span::~Span()
 void Span::addNumber(int number)
 {
 	if (_numbers.size() >= _size)
-		throw std::runtime_error("Span is full");
+		throw std::out_of_range("Span is full");
 	_numbers.push_back(number);
 }
 
+template < typename T >
+void addNumber(T &container, typename T::iterator begin, typename T::iterator end)
+{
+	_numbers.insert(_numbers.end(), begin, end);
+	if (_numbers.size() >= _size)
+		std::out_of_range("Span is full")
+}
 unsigned int Span::shortestSpan() const
 {
 	if (_numbers.size() < 2)
@@ -42,7 +48,7 @@ unsigned int Span::shortestSpan() const
 	unsigned int minSpan = std::numeric_limits< unsigned int >::max();
 	for (std::vector< int >::iterator i = sortedNumbers.begin() + 1; i != sortedNumbers.end(); ++i)
 	{
-		unsigned int span = static_cast<unsigned int>(std::abs((static_cast< long long >(*i) - (static_cast< long long >(*(i - 1))))));
+		unsigned int span = static_cast< unsigned int >(std::abs((static_cast< long long >(*i) - (static_cast< long long >(*(i - 1))))));
 		minSpan = std::min(minSpan, span);
 	}
 	return minSpan;
