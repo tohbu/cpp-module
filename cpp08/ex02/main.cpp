@@ -22,8 +22,34 @@ int main()
 		std::cout << *it << std::endl;
 		++it;
 	}
+
+	//list test
+	std::list< int > list;
+	list.push_back(5);
+	list.push_back(17);
+	list.pop_back();
+	list.push_back(3);
+	list.push_back(5);
+	list.push_back(737);
+	list.push_back(0);
+	std::cout << "list test" << std::endl;
+	for (std::list< int >::iterator it = list.begin(); it != list.end(); it++)
+	{
+		std::cout << *it << std::endl;
+	}
+	//
+	std::stack< int > s(mstack);
 	const MutantStack< int > const_mstack(mstack);
-	std::cout << "const mutant stack begin: " << *const_mstack.begin() << std::endl;
-	std::cout << "const mutant stack end: " << *(const_mstack.end()) << std::endl;
+	s.push(42);
+	s.push(84);
+	s.pop();
+	std::cout << "stack top: " << s.top() << std::endl;
+	if (!const_mstack.empty())
+	{
+		std::cout << "const mutant stack begin: " << *const_mstack.begin() << std::endl;
+		MutantStack< int >::const_iterator last = const_mstack.end();
+		--last;
+		std::cout << "const mutant stack last: " << *last << std::endl;
+	}
 	return 0;
 }
