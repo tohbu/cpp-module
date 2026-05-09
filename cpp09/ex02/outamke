@@ -1,0 +1,126 @@
+Input: 22
+Before: 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7 
+Current state  block size: 8
+6 15 8 16 2 11 0 17 
+9 18 14 19 3 10 1 21 
+5 12 4 20 7 13 
+Current state  block size: 4
+6 15 8 16 
+2 11 0 17 
+9 18 14 19 
+3 10 1 21 
+5 12 4 20 
+7 13 
+Main Chain
+Current state  block size: 4
+6 15 8 16 
+2 11 0 17 
+3 10 1 21 
+
+Pending Elements:
+Current state  block size: 5
+21 9 18 14 19 
+-1 5 12 4 20 
+
+No pair elements:
+Current state  block size: 4
+7 13 
+Inserting pending element 12 from position 7 (paired with 14 at position 3)
+Finding insertion index for 12 between [6 and 21]
+Comparing with 17 at index 7
+Comparing with 16 at index 3
+Insertion index found at 3 for target 12
+After inserting main elements: 
+Current state  block size: 4
+19 -1 5 12 
+6 15 8 16 
+2 11 0 17 
+3 10 1 21 
+
+Current state  block size: 2
+19 -1 
+5 12 
+6 15 
+8 16 
+2 11 
+0 17 
+3 10 
+1 21 
+7 13 
+
+Main Chain
+Current state  block size: 2
+19 -1 
+5 12 
+8 16 
+0 17 
+1 21 
+
+Pending Elements:
+Current state  block size: 3
+16 6 15 
+17 2 11 
+21 3 10 
+-1 7 13 
+
+No pair elements:
+Current state  block size: 2
+
+Inserting pending element 11 from position 5 (paired with 17 at position 3)
+Finding insertion index for 11 between [19 and 16]
+Comparing with 12 at index 3
+Comparing with -1 at index 1
+Insertion index found at 3 for target 11
+Inserting pending element 17 from position 3 (paired with 6 at position 1)
+Finding insertion index for 17 between [19 and 21]
+Comparing with 12 at index 5
+Comparing with 1 at index 10
+Insertion index found at 12 for target 17
+Inserting pending element -1 from position 9 (paired with 3 at position 7)
+Finding insertion index for -1 between [19 and 21]
+Comparing with 16 at index 7
+Comparing with 11 at index 3
+Comparing with -1 at index 1
+Insertion index found at 1 for target -1
+Inserting pending element 3 from position 7 (paired with 11 at position 5)
+Finding insertion index for 3 between [10 and -1]
+Comparing with -1 at index 1
+Insertion index found at 3 for target 3
+Inserting pending element 13 from position 11 (paired with -1 at position 9)
+Finding insertion index for 13 between [10 and 0]
+Insertion index found at 0 for target 13
+After inserting main elements: 
+Current state  block size: 2
+7 13 
+10 -1 
+21 3 
+19 -1 
+2 11 
+5 12 
+8 16 
+0 17 
+1 15 
+17 21 
+
+Current state  block size: 1
+7 
+13 
+10 
+-1 
+21 
+3 
+19 
+-1 
+2 
+11 
+5 
+12 
+8 
+16 
+0 
+17 
+1 
+15 
+17 
+21 
+
