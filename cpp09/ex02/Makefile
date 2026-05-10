@@ -1,7 +1,6 @@
 # Basic Makefile Template
 NAME =  PmergeMe
-SRCS_FILE  = main  PmergeMe
-
+SRCS_FILE  = main  PmergeMe 
 SRCS = $(addsuffix .cpp, $(SRCS_FILE))
 OBJ  = $(SRCS_FILE:=.o)
 CXX  = c++
