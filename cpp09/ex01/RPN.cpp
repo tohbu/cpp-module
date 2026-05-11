@@ -29,7 +29,7 @@ int RPN::calculate(const std::string &str)
 			stack.pop();
 			int a = stack.top();
 			stack.pop();
-			int result;
+			int result = 0;
 			switch (c)
 			{
 				case '+':

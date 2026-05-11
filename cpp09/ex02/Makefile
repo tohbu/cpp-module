@@ -1,25 +1,25 @@
-# Basic Makefile Template
-NAME =  PmergeMe
-SRCS_FILE  = main 
-SRCS = $(addsuffix .cpp, $(SRCS_FILE))
-OBJ  = $(SRCS_FILE:=.o)
-CXX  = c++
-CXXFLAGS = -g  -Wall -Wextra -Werror -std=c++98  
+NAME     = PmergeMe
+SRCS     = main.cpp 
+OBJS     = $(SRCS:.cpp=.o)
+DEPS     = $(SRCS:.cpp=.d)     
+CXX      = c++
+CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98 -MMD -MP # -MMD -MP を追加
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+# 生成された .d ファイル（依存関係メモリ）を読み込む
+-include $(DEPS)
 
 .PHONY: all clean fclean re

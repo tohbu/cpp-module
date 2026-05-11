@@ -36,6 +36,18 @@ void PmergeMe< T >::printContainer(int block_size)
 }
 
 template < typename T >
+void printSTL(T &container, int block_size)
+{
+	for (typename T::iterator it = container.begin(); it != container.end(); ++it)
+	{
+		std::cout << *it << " ";
+		if (std::distance(container.begin(), it) % block_size == block_size - 1)
+			std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
+
+template < typename T >
 int PmergeMe< T >::findInsertionIndex(T &container, int target, typename T::iterator right_it, int block_size)
 {
 	int low = 0;
@@ -76,15 +88,19 @@ void PmergeMe< T >::insertalgorithm(T &main_chain, T &pending_elements, int bloc
 			size_t bn_pos = an_pos + block_size;
 			typename T::iterator an = my_next(pending_elements.begin(), an_pos);
 			typename T::iterator bn = my_next(pending_elements.begin(), bn_pos);
-			typename T::iterator pos;
+			typename T::iterator right;
 			if (*an != -1)
 			{
-				pos = std::find(main_chain.begin(), main_chain.end(), *an);
-				pos = my_prev(pos, block_size);
+				right = std::find(main_chain.begin(), main_chain.end(), *an);
+				right = my_prev(right, block_size);
 			}
 			else
-				pos = my_prev(main_chain.end(), 1);
-			int insert_block_idx = findInsertionIndex(main_chain, *bn, pos, block_size);
+				right = my_prev(main_chain.end(), 1);
+
+			// //Debug output
+			// std::cout << "an = " << *an << "	|  bn = " << *bn << "	| right = " << *right << std::endl;
+
+			int insert_block_idx = findInsertionIndex(main_chain, *bn, right, block_size);
 			typename T::iterator pending_elements_pos = my_next(pending_elements.begin(), an_pos + 1);
 			typename T::iterator insert_pos = my_next(main_chain.begin(), insert_block_idx * block_size);
 			main_chain.insert(insert_pos, pending_elements_pos, my_next(pending_elements_pos, block_size));
@@ -122,11 +138,20 @@ void PmergeMe< T >::make_main_chain(int block_size)
 	}
 	if (pending_elements.empty())
 		return;
+	// //Debug output
+	// std::cout << "Main chain:" << std::endl;
+	// printSTL(main_chain, block_size);
+	// std::cout << "Pending elements: " << std::endl;
+	// printSTL(pending_elements, block_size + 1);
+
 	no_pair_elements.insert(no_pair_elements.end(), my_next(_container.begin(), i), _container.end());
 	insertalgorithm(main_chain, pending_elements, block_size);
 	_container.clear();
 	_container.insert(_container.end(), main_chain.begin(), main_chain.end());
 	_container.insert(_container.end(), no_pair_elements.begin(), no_pair_elements.end());
+	// //Debug output
+	// std::cout << "After inserting pending elements: " << std::endl;
+	// printSTL(_container, block_size);
 }
 
 template < typename T >
@@ -162,6 +187,8 @@ void PmergeMe< T >::printResults()
 	std::cout << "Time to process a range of " << _container.size()
 			  << " elements with std::" << _container_type << ": "
 			  << std::fixed << std::setprecision(5) << duration << " us" << std::endl;
+	// //Debug output
+	// std::cout << "Number of comparisons: " << this->_nbr_of_comps << std::endl;
 }
 
 template < typename T >
