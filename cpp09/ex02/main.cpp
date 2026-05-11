@@ -9,8 +9,11 @@ bool isValidateInput(int argc, char *argv[])
 	for (int i = 1; i < argc; ++i)
 	{
 		std::string str(argv[i]);
-		if (str.empty())
+		if (str.empty() || str.length() > 10 || (str.length() == 10 && str > "2147483647"))
+		{
+			std::cerr << "Error: Invalid input '" << str << "'. Please enter a valid positive integer." << std::endl;
 			return false;
+		}
 		for (size_t j = 0; j < str.size(); ++j)
 		{
 			if (!std::isdigit(str[j]))
