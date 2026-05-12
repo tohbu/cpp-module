@@ -3,32 +3,46 @@
 #include <cctype>
 #include <string>
 #include <iostream>
+#include <stack>
+
 RPN::RPN()
 {
 }
 RPN ::~RPN()
 {
 }
+
+RPN ::RPN(const RPN &other) : _stack(other._stack)
+{
+}
+RPN &RPN ::operator=(const RPN &other)
+{
+	if (this != &other)
+	{
+		this->_stack = other._stack;
+	}
+	return *this;
+}
+
 int RPN::calculate(const std::string &str)
 {
-	std::stack< int > stack;
 	for (size_t i = 0; i < str.length(); ++i)
 	{
 		char c = str[i];
 		if (c == ' ')
 			continue;
 		else if (std::isdigit(c))  // number
-			stack.push(c - '0');
+			_stack.push(c - '0');
 		else  // operator
 		{
-			if (stack.size() != 2)
+			if (_stack.size() < 2)
 			{
 				throw std::runtime_error("Invalid RPN expression");
 			}
-			int b = stack.top();
-			stack.pop();
-			int a = stack.top();
-			stack.pop();
+			int b = _stack.top();
+			_stack.pop();
+			int a = _stack.top();
+			_stack.pop();
 			int result = 0;
 			switch (c)
 			{
@@ -47,14 +61,15 @@ int RPN::calculate(const std::string &str)
 					result = a / b;
 					break;
 				default:
-					throw std::runtime_error("Invalid operator in RPN expression");
-			}
-			stack.push(result);
+					std::string error_msg = std::string(1, c) + " Invalid operator in RPN expression";
+					throw std::runtime_error(error_msg);
+			};
+			_stack.push(result);
 		}
 	}
-	if (stack.size() != 1)
+	if (_stack.size() != 1)
 	{
 		throw std::runtime_error("Invalid RPN expression ");
 	}
-	return stack.top();
+	return _stack.top();
 }

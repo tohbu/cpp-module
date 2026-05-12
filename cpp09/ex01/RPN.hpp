@@ -3,16 +3,18 @@
 
 #include <string>
 #include <stack>
+
 class RPN
 {
+private:
+	std::stack< int > _stack;
+
 public:
 	RPN();
 	~RPN();
-	int calculate(const std::string &expression);
-
-private:
 	RPN(const RPN &other);
 	RPN &operator=(const RPN &other);
+	int calculate(const std::string &expression);
 };
 
 #endif
