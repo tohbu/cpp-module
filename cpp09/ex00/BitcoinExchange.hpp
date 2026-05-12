@@ -8,7 +8,7 @@
 class BitcoinExchange
 {
 private:
-	std::map< std::string, double > _data;	// double型の値を格納するためにdoubleを使用(範囲の制限)
+	std::map< std::string, double > _data;
 	void ParseDB(void);
 	void ReadInputFile(const std::string &inputFile);
 	void GetPrice(const std::string &date);
@@ -24,6 +24,5 @@ public:
 #endif
 
 // one line　→　parser
-
 // db  →　map　→　key: date, value: price
 // lower_bound　→　key: date, value: price

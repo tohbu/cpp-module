@@ -28,6 +28,7 @@ public:
 	PmergeMe(int argc, char *argv[], T container, std::string container_type);
 	void printContainer(int block_size);
 	void printResults();
+	int getNbrOfComps() const;
 };
 
 #include "PmergeMe.cpp"

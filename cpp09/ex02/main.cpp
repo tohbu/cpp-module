@@ -60,5 +60,7 @@ int main(int argc, char *argv[])
 	pm.printContainer(argc);
 	pm.printResults();
 	pm2.printResults();
+	std::cout << "Number of comparisons for vector: " << pm.getNbrOfComps() << std::endl;
+	std::cout << "Number of comparisons for list: " << pm2.getNbrOfComps() << std::endl;
 	return 0;
 }

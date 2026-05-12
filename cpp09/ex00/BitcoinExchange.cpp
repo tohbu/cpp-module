@@ -12,9 +12,8 @@ BitcoinExchange::~BitcoinExchange()
 {
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) : _data(other._data)
 {
-	*this = other;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
@@ -27,7 +26,6 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 }
 // 4. mktime によって値が書き換えられていたら、元の日付が異常だった証拠
 // 例: 5月32日を入力すると、mktimeは自動的に6月1日に変換してしまう
-
 //validate date format (YYYY-MM-DD)
 bool isValidDate(std::string date)
 {
@@ -150,7 +148,7 @@ void BitcoinExchange::GetPrice(const std::string &line)	 // one line　→　par
 	if (it->first != date)
 	{
 		if (it != this->_data.begin())	// lower_boundが見つからない場合は、前のエントリーを使用
-			--it;	
+			--it;
 		else
 		{
 			std::string error = "No data available for date: " + date;
@@ -167,8 +165,8 @@ void BitcoinExchange::GetPrice(const std::string &line)	 // one line　→　par
 		throw std::runtime_error(error);
 	}
 	// debug
-	std::cout << "Price for date " << it->first << " is " << price << std::endl;
-	std::cout << date << " => " << value << " = " << value * price << std::endl;
+	// std::cout << "Price for date " << it->first << " is " << price << std::endl;
+	// std::cout << date << " => " << value << " = " << value * price << std::endl;
 }
 
 void BitcoinExchange::ReadInputFile(const std::string &inputFile)  // one line　→　parser

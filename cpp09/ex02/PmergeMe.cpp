@@ -51,9 +51,8 @@ template < typename T >
 int PmergeMe< T >::findInsertionIndex(T &container, int target, typename T::iterator right_it, int block_size)
 {
 	int low = 0;
-	int high = ((std::distance(container.begin(), right_it)) + 1);
+	int high = std::distance(container.begin(), right_it) / block_size;
 	int insert_block_idx = 0;
-	high /= block_size;
 	while (low <= high)
 	{
 		int mid_block = low + (high - low) / 2;
@@ -97,9 +96,8 @@ void PmergeMe< T >::insertalgorithm(T &main_chain, T &pending_elements, int bloc
 			else
 				right = my_prev(main_chain.end(), 1);
 
-			// //Debug output
-			// std::cout << "an = " << *an << "	|  bn = " << *bn << "	| right = " << *right << std::endl;
-
+			//Debug output
+			//std::cout << "an = " << *an << "	|  bn = " << *bn << "	| right = " << *right << std::endl;
 			int insert_block_idx = findInsertionIndex(main_chain, *bn, right, block_size);
 			typename T::iterator pending_elements_pos = my_next(pending_elements.begin(), an_pos + 1);
 			typename T::iterator insert_pos = my_next(main_chain.begin(), insert_block_idx * block_size);
@@ -122,9 +120,9 @@ void PmergeMe< T >::make_main_chain(int block_size)
 	size_t i = block_size * 2;
 	for (size_t j = 0; i + block_size <= _container.size(); j++, i += block_size)
 	{
-		if (j % 2 == 0)
+		if (j % 2 == 0)	 // bn
 		{
-			if (i + block_size * 2 >= _container.size())
+			if (i + block_size * 2 > _container.size())
 				pending_elements.push_back(-1);
 			else
 			{
@@ -133,7 +131,7 @@ void PmergeMe< T >::make_main_chain(int block_size)
 			}
 			pending_elements.insert(pending_elements.end(), my_next(_container.begin(), i), my_next(_container.begin(), i + block_size));
 		}
-		else
+		else  // an
 			main_chain.insert(main_chain.end(), my_next(_container.begin(), i), my_next(_container.begin(), i + block_size));
 	}
 	if (pending_elements.empty())
@@ -189,6 +187,12 @@ void PmergeMe< T >::printResults()
 			  << std::fixed << std::setprecision(5) << duration << " us" << std::endl;
 	// //Debug output
 	// std::cout << "Number of comparisons: " << this->_nbr_of_comps << std::endl;
+}
+
+template < typename T >
+int PmergeMe< T >::getNbrOfComps() const
+{
+	return this->_nbr_of_comps;
 }
 
 template < typename T >
