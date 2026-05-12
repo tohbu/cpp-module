@@ -144,7 +144,7 @@ void BitcoinExchange::GetPrice(const std::string &line)	 // one line　→　par
 	std::string date = trimSpaces(line.substr(0, line.find('|')));
 	std::map< std::string, double >::iterator it = this->_data.lower_bound(date);
 	//debug
-	std::cout << "Looking for date: " << date << " | Get it: " << it->first << std::endl;
+	std::cout << "Looking for date: " << date << " | Get it: " << it->first;
 	if (it->first != date)
 	{
 		if (it != this->_data.begin())	// lower_boundが見つからない場合は、前のエントリーを使用
@@ -155,6 +155,7 @@ void BitcoinExchange::GetPrice(const std::string &line)	 // one line　→　par
 			throw std::runtime_error(error);
 		}
 	}
+	std::cout << " | Use it : " << it->first << std::endl;	// Debug output
 	double price = it->second;
 	std::stringstream valueStream(trimSpaces(line.substr(line.find('|') + 1)));
 	double value;
@@ -166,7 +167,7 @@ void BitcoinExchange::GetPrice(const std::string &line)	 // one line　→　par
 	}
 	// debug
 	// std::cout << "Price for date " << it->first << " is " << price << std::endl;
-	// std::cout << date << " => " << value << " = " << value * price << std::endl;
+	std::cout << date << " => " << value << " = " << value * price << std::endl;
 }
 
 void BitcoinExchange::ReadInputFile(const std::string &inputFile)  // one line　→　parser
