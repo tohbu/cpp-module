@@ -96,8 +96,10 @@ void PmergeMe< T >::insertalgorithm(T &main_chain, T &pending_elements, int bloc
 			else
 				right = my_prev(main_chain.end(), 1);
 
-			//Debug output
-			//std::cout << "an = " << *an << "	|  bn = " << *bn << "	| right = " << *right << std::endl;
+//Debug output
+#ifdef DEBUG
+			std::cout << "an = " << *an << "	|  bn = " << *bn << "	| right = " << *right << std::endl;
+#endif
 			int insert_block_idx = findInsertionIndex(main_chain, *bn, right, block_size);
 			typename T::iterator pending_elements_pos = my_next(pending_elements.begin(), an_pos + 1);
 			typename T::iterator insert_pos = my_next(main_chain.begin(), insert_block_idx * block_size);
@@ -136,20 +138,24 @@ void PmergeMe< T >::make_main_chain(int block_size)
 	}
 	if (pending_elements.empty())
 		return;
-	// //Debug output
-	// std::cout << "Main chain:" << std::endl;
-	// printSTL(main_chain, block_size);
-	// std::cout << "Pending elements: " << std::endl;
-	// printSTL(pending_elements, block_size + 1);
+	//Debug output
+#ifdef DEBUG
+	std::cout << "Main chain:" << std::endl;
+	printSTL(main_chain, block_size);
+	std::cout << "Pending elements: " << std::endl;
+	printSTL(pending_elements, block_size + 1);
+#endif
 
 	no_pair_elements.insert(no_pair_elements.end(), my_next(_container.begin(), i), _container.end());
 	insertalgorithm(main_chain, pending_elements, block_size);
 	_container.clear();
 	_container.insert(_container.end(), main_chain.begin(), main_chain.end());
 	_container.insert(_container.end(), no_pair_elements.begin(), no_pair_elements.end());
-	// //Debug output
-	// std::cout << "After inserting pending elements: " << std::endl;
-	// printSTL(_container, block_size);
+	//Debug output
+#ifdef DEBUG
+	std::cout << "After inserting pending elements: " << std::endl;
+	printSTL(_container, block_size);
+#endif
 }
 
 template < typename T >

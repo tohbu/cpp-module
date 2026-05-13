@@ -93,6 +93,7 @@ bool validInputLine(const std::string &line)  // one line　→　parser
 	}
 	return true;
 }
+
 bool isValidDB(const std::string &line)
 {
 	if (!isValidDate(trimSpaces(line.substr(0, line.find(',')))) || !isValidValue(trimSpaces(line.substr(line.find(',') + 1))) || !isValidValue(trimSpaces(line.substr(line.find(',') + 1))))
@@ -109,7 +110,12 @@ void BitcoinExchange::ParseDB(void)	 // one line　→　parser
 	std::ifstream db("data.csv");
 	if (!db.is_open())
 		throw std::runtime_error("Failed to open data.csv");
-	std::getline(db, line);	 // Skip header line
+	std::getline(db, line);	 // Read header line
+	if ((line.find(',') == std::string::npos || (trimSpaces(line.substr(0, line.find(',')))) != "date" || (trimSpaces(line.substr(line.find(',') + 1))) != "exchange_rate"))
+	{
+		std::string error = "Invalid header in data.csv: " + line;
+		throw std::runtime_error(error);
+	}
 	while (std::getline(db, line))
 	{
 		// Parse each line and insert into _data map
@@ -144,18 +150,31 @@ void BitcoinExchange::GetPrice(const std::string &line)	 // one line　→　par
 	std::string date = trimSpaces(line.substr(0, line.find('|')));
 	std::map< std::string, double >::iterator it = this->_data.lower_bound(date);
 	//debug
-	std::cout << "Looking for date: " << date << " | Get it: " << it->first;
-	if (it->first != date)
+#ifdef DEBUG
+
+	if (it != this->_data.end())
+		std::cout << "Looking for date: " << date << " | Get it: " << it->first;
+	else
+		std::cout << "Looking for date: " << date << " | Get it: data.end()";
+#endif
+
+	if (it == this->_data.end() || it->first != date)
 	{
 		if (it != this->_data.begin())	// lower_boundが見つからない場合は、前のエントリーを使用
 			--it;
-		else
+		else  // it == this->data.begin()
 		{
+#ifdef DEBUG
+			std::cout << " | No earlier date available, cannot use data." << std::endl;	 // Debug output
+#endif 
 			std::string error = "No data available for date: " + date;
 			throw std::runtime_error(error);
 		}
 	}
+#ifdef DEBUG
 	std::cout << " | Use it : " << it->first << std::endl;	// Debug output
+#endif
+
 	double price = it->second;
 	std::stringstream valueStream(trimSpaces(line.substr(line.find('|') + 1)));
 	double value;
@@ -176,7 +195,12 @@ void BitcoinExchange::ReadInputFile(const std::string &inputFile)  // one line�
 	std::ifstream input(inputFile.c_str());
 	if (!input.is_open())
 		throw std::runtime_error("Failed to open input file: " + inputFile);
-	std::getline(input, line);	// Skip header line
+	std::getline(input, line);	// Read header line and validate
+	if ((line.find('|') == std::string::npos || (trimSpaces(line.substr(0, line.find('|')))) != "date" || (trimSpaces(line.substr(line.find('|') + 1))) != "value"))
+	{
+		std::string error = "Invalid header in input file: " + line;
+		throw std::runtime_error(error);
+	}
 	while (std::getline(input, line))
 	{
 		try

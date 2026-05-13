@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <stack>
+#include <limits>
 
 RPN::RPN()
 {
@@ -26,25 +27,30 @@ RPN &RPN ::operator=(const RPN &other)
 
 int RPN::calculate(const std::string &str)
 {
-	for (size_t i = 0; i < str.length(); ++i)
+	for (size_t i = 0; i < str.size(); i++)
 	{
-		char c = str[i];
-		if (c == ' ')
+		char s = str[i];
+		if (std::isspace(s))
 			continue;
-		else if (std::isdigit(c))  // number
-			_stack.push(c - '0');
+		if (std::isdigit(s))  // number
+		{
+			if (i + 1 < str.size() && std::isdigit(str[i + 1]))	 // 二桁以上
+				throw std::runtime_error("Digit must be [1-9] in RPN expression");
+			else
+				_stack.push(s - '0');
+		}
 		else  // operator
 		{
 			if (_stack.size() < 2)
 			{
 				throw std::runtime_error("Invalid RPN expression");
 			}
-			int b = _stack.top();
+			long b = _stack.top();
 			_stack.pop();
-			int a = _stack.top();
+			long a = _stack.top();
 			_stack.pop();
-			int result = 0;
-			switch (c)
+			long result = 0;
+			switch (s)
 			{
 				case '+':
 					result = a + b;
@@ -61,9 +67,12 @@ int RPN::calculate(const std::string &str)
 					result = a / b;
 					break;
 				default:
-					std::string error_msg = std::string(1, c) + " Invalid operator in RPN expression";
+					std::string error_msg = std::string(1, s) + " Invalid operator in RPN expression";
 					throw std::runtime_error(error_msg);
 			};
+			//std::cout << "Debug: " << a << " " << s << " " << b << " = " << result << std::endl; // Debug output
+			if (result < static_cast<long>(std::numeric_limits< int >::min()) || result > static_cast<long>(std::numeric_limits< int >::max()))
+				throw std::runtime_error("Result out of int range");
 			_stack.push(result);
 		}
 	}

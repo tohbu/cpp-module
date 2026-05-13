@@ -19,7 +19,9 @@ fclean: clean
 
 re: fclean all
 
+debug: CXXFLAGS += -DDEBUG
+debug: fclean all
 # 生成された .d ファイル（依存関係メモリ）を読み込む
 -include $(DEPS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug

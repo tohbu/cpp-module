@@ -43,11 +43,13 @@ echo -e "\n[Normal Cases]"
 test_case "8 9 * 9 - 9 - 9 - 4 - 1 +" "42"
 test_case "7 7 * 7 -" "42"
 test_case "1 2 * 2 / 2 * 2 4 - +" "0"
-
+test_case "3 4+2* 7 -" "7"
 # --- 2. 異常系: 不正な文法 (数字が並びすぎる、最後が数字など) ---
 echo -e "\n[Invalid Grammar Cases]"
 test_case "1 2 3 + " "Error"       # 数字が余る
 test_case "1 2 + 3" "Error"       # 最後が数字で終わる
+test_case "10 1 +" "Error"         # 二桁の数字
+test_case "1 2 + +" "Error"       # 演算子が多すぎる
 
 # --- 3. 異常系: 不正な文字・記号 ---
 echo -e "\n[Invalid Characters]"
@@ -61,5 +63,13 @@ echo -e "\n[Arithmetic & Stack Errors]"
 test_case "1 0 /" "Error"        # ゼロ除算
 test_case "1 + " "Error"         # 数字が足りない
 test_case "1 2 + +" "Error"       # 演算子が多すぎる
+
+echo -e "\n[Overflow & Underflow Cases]"
+test_case "8  8  8  8  8  8  8  8  8  8    *  *  *  *  *  *  *  *  *" "1073741824"       # 
+test_case "8  8  8  8  8  8  8  8  8  8  2 *  *  *  *  *  *  *  *  *  *" "Error" # INTオーバーフロー
+test_case "8  8  8  8  8  8  8  8  8  8  2 1 2 - * *  *  *  *  *  *  *  *  *  *" "-2147483648" # INT_MIN
+test_case "8  8  8  8  8  8  8  8  8  8  2 2 1 2 - * *  *  *  *  *  *  *  *  *  * * " "Error" # INTアンダーフロー
+
+
 
 echo -e "\n--- Test Completed ---"
